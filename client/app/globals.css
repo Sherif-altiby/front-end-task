@@ -177,3 +177,7 @@
  .container{
     @apply mx-auto
  }
+
+ button{
+  @apply cursor-pointer;
+ }

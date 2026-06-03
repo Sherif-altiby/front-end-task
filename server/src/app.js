@@ -1,16 +1,24 @@
 import express from "express";
+import cors from "cors";
+
 import { globalErrorHandler } from "./middlewares/error.middleware.js";
-import ApiError from "./utils/ApiError.js";
 import authRoutes from "./routes/auth.routes.js";
 import productRoutes from "./routes/product.routes.js";
 import { notFoundHandler } from "./middlewares/notfound.middleware.js";
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("API is running 🚀");
+  res.send("API is running");
 });
 
 // Routes

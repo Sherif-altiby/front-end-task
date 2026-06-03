@@ -1,24 +1,25 @@
-import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/layout/Navbar";
+import Providers from "@/components/query-provider";
+import "./globals.css";
+import { ToastContainer } from "react-toastify";
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-        >
-          <Navbar />
-          {children}
-        </ThemeProvider>
-      </body>
+        
+          <Providers>
+            <Navbar />
+             <div className="container" >
+                 {children}
+             </div>
+             <ToastContainer position="top-right" />
+          </Providers>
+       </body>
     </html>
   );
 }

@@ -1,5 +1,5 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { getAllProductsService } from "../services/product.service.js";
+import { getAllProductsService, getProductByIdService } from "../services/product.service.js";
 
 export const getAllProducts = asyncHandler(async (req, res) => {
   const result = await getAllProductsService(req.query);
@@ -11,3 +11,21 @@ export const getAllProducts = asyncHandler(async (req, res) => {
     data: result.data
   });
 });
+
+
+
+export const getProductByIdController = async (req, res) => {
+  try {
+    const product = await getProductByIdService(req.params.id);
+
+    res.status(200).json({
+      status: "success",
+      data: product,
+    });
+  } catch (error) {
+    res.status(404).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
