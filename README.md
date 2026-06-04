@@ -1,4 +1,4 @@
-# Frontend Task - Full Stack E-commerce App 🛒
+# Frontend Task 
 
 A modern full-stack web application built using **Next.js (Frontend)** and **Node.js + Express (Backend)**.  
 The project includes authentication, product listing, filtering, and product details with a clean responsive UI.
@@ -22,6 +22,7 @@ The project includes authentication, product listing, filtering, and product det
 - React Toastify
 - Lucide React Icons
 - Shadcn UI / Base UI
+- jest test
 
 ### Backend
 - Node.js
