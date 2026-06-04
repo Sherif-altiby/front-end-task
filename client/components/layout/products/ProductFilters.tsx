@@ -59,7 +59,7 @@ export default function ProductFilters({
       {/* Sort */}
       <div>
         <Label>Sort by price</Label>
-        <Select value={sort} onValueChange={setSort}>
+        <Select value={sort} onValueChange={setSort as any}>
           <SelectTrigger>
             <SelectValue placeholder="Select" />
           </SelectTrigger>
