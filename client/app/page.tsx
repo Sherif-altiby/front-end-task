@@ -7,8 +7,10 @@ import ProductFilters from "@/features/products/components/ProductFilters";
 import ProductsPagination from "@/features/products/components/ProductsPagination";
 import { useProducts } from "@/features/products/hooks/useProducts";
 import ProductSkeleton from "@/features/products/components/ProductSkeleton";
-
+ 
 export default function ProductsPage() {
+
+ 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
   const [sort, setSort] = useState("low");

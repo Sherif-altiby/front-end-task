@@ -1,7 +1,8 @@
 import Navbar from "@/components/layout/Navbar";
-import Providers from "@/components/query-provider";
+import QueryProviders from "@/components/query-provider";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
+import { ReduxProvider } from "@/store/provider";
 
 export default function RootLayout({
   children,
@@ -11,15 +12,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        
-          <Providers>
+
+        <ReduxProvider>
+          <QueryProviders>
             <Navbar />
-             <div className="container" >
-                 {children}
-             </div>
-             <ToastContainer position="top-right" />
-          </Providers>
-       </body>
+            <div className="container" >
+              {children}
+            </div>
+            <ToastContainer position="top-right" />
+          </QueryProviders>
+
+        </ReduxProvider>
+      </body>
     </html>
   );
 }

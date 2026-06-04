@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,17 +23,18 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { api } from "@/lib/axios";
-import { toast } from "react-toastify";
 
-const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
+import { loginSchema } from "@/validations/login.schema";
+import { useAppDispatch } from "@/store/hooks";
+import { loginSuccess } from "@/store/slices/authSlice";
+import { login } from "./login"; // ✅ separated API call
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -40,10 +43,20 @@ export default function LoginForm() {
     },
   });
 
+  const { isSubmitting } = form.formState;
+
   async function onSubmit(data: LoginFormValues) {
     try {
-      await api.post("/api/auth/login", data);
-      toast.success("Login successful 🎉");
+      const result = await login(data);
+
+      dispatch(
+        loginSuccess({
+          user: result.user,
+        })
+      );
+
+      toast.success("Login successful");
+      router.push("/");
     } catch (err: any) {
       toast.error(err?.response?.data?.message || "Login failed");
     }
@@ -79,14 +92,7 @@ export default function LoginForm() {
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid} className="space-y-1.5">
                     <FieldLabel>Email</FieldLabel>
-
-                    <Input
-                      {...field}
-                      type="email"
-                      placeholder="you@example.com"
-                      className="h-11"
-                    />
-
+                    <Input {...field} type="email" placeholder="you@example.com" className="h-11" />
                     {fieldState.error && (
                       <FieldError errors={[fieldState.error]} />
                     )}
@@ -101,14 +107,7 @@ export default function LoginForm() {
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid} className="space-y-1.5">
                     <FieldLabel>Password</FieldLabel>
-
-                    <Input
-                      {...field}
-                      type="password"
-                      placeholder="••••••••"
-                      className="h-11"
-                    />
-
+                    <Input {...field} type="password" placeholder="••••••••" className="h-11" />
                     {fieldState.error && (
                       <FieldError errors={[fieldState.error]} />
                     )}
@@ -121,10 +120,7 @@ export default function LoginForm() {
             {/* REGISTER LINK */}
             <div className="text-center text-sm text-muted-foreground">
               Don’t have an account?{" "}
-              <Link
-                href="/register"
-                className="text-primary font-medium hover:underline"
-              >
+              <Link href="/register" className="text-primary font-medium hover:underline">
                 Create one
               </Link>
             </div>
@@ -136,9 +132,10 @@ export default function LoginForm() {
           <Button
             type="submit"
             form="login-form"
+            disabled={isSubmitting}
             className="w-full h-11 rounded-lg"
           >
-            Sign in
+            {isSubmitting ? "Signing in..." : "Sign in"}
           </Button>
         </CardFooter>
       </Card>
