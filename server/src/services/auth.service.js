@@ -29,7 +29,11 @@ export const registerService = async (data) => {
   const token = signToken(user);
 
   return {
-    user,
+    user: {
+      name: user.name,
+      email: user.email,
+      userId: user._id
+    },
     token
   };
 };
@@ -48,9 +52,14 @@ export const loginService = async (data) => {
     throw new ApiError(400, "Invalid Email or Password");
   }
 
+  const token = signToken(user);
+
   return {
-    id: user._id,
-    name: user.name,
-    email: user.email
+    user: {
+      userId: user._id,
+      name: user.name,
+      email: user.email
+    },
+    token
   };
 };

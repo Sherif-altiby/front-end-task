@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -49,16 +50,16 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/20 px-4">
-      <Card className="w-full max-w-sm shadow-xl border-border/60 rounded-2xl">
-        
+    <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
+      <Card className="w-full max-w-sm rounded-2xl border shadow-lg">
+
         {/* HEADER */}
-        <CardHeader className="text-center space-y-2">
-          <CardTitle className="text-2xl font-semibold tracking-tight">
+        <CardHeader className="text-center space-y-1">
+          <CardTitle className="text-2xl font-semibold">
             Welcome back
           </CardTitle>
-          <CardDescription className="text-sm text-muted-foreground">
-            Enter your credentials to continue
+          <CardDescription>
+            Sign in to your account
           </CardDescription>
         </CardHeader>
 
@@ -77,24 +78,13 @@ export default function LoginForm() {
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid} className="space-y-1.5">
-                    <FieldLabel className="text-xs text-muted-foreground">
-                      Email
-                    </FieldLabel>
+                    <FieldLabel>Email</FieldLabel>
 
                     <Input
                       {...field}
                       type="email"
                       placeholder="you@example.com"
-                      className="
-                        h-11 rounded-lg
-                        bg-background/60 backdrop-blur
-                        border-border/60
-                        transition-all
-                        focus-visible:ring-2
-                        focus-visible:ring-foreground/20
-                        focus-visible:border-foreground/40
-                        placeholder:text-muted-foreground/50
-                      "
+                      className="h-11"
                     />
 
                     {fieldState.error && (
@@ -110,24 +100,13 @@ export default function LoginForm() {
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid} className="space-y-1.5">
-                    <FieldLabel className="text-xs text-muted-foreground">
-                      Password
-                    </FieldLabel>
+                    <FieldLabel>Password</FieldLabel>
 
                     <Input
                       {...field}
                       type="password"
                       placeholder="••••••••"
-                      className="
-                        h-11 rounded-lg
-                        bg-background/60 backdrop-blur
-                        border-border/60
-                        transition-all
-                        focus-visible:ring-2
-                        focus-visible:ring-foreground/20
-                        focus-visible:border-foreground/40
-                        placeholder:text-muted-foreground/50
-                      "
+                      className="h-11"
                     />
 
                     {fieldState.error && (
@@ -138,22 +117,26 @@ export default function LoginForm() {
               />
 
             </FieldGroup>
+
+            {/* REGISTER LINK */}
+            <div className="text-center text-sm text-muted-foreground">
+              Don’t have an account?{" "}
+              <Link
+                href="/register"
+                className="text-primary font-medium hover:underline"
+              >
+                Create one
+              </Link>
+            </div>
           </form>
         </CardContent>
 
         {/* FOOTER */}
         <CardFooter>
           <Button
-            className="
-              w-full h-11 rounded-lg
-              font-medium
-              bg-foreground text-background
-              hover:bg-foreground/90
-              transition-all
-              active:scale-[0.98]
-            "
             type="submit"
             form="login-form"
+            className="w-full h-11 rounded-lg"
           >
             Sign in
           </Button>

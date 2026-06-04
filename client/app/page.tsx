@@ -48,7 +48,7 @@ export default function ProductsPage() {
 
           {/* Skeleton instead of loading text */}
           {isFetching ? (
-             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 ">
              {Array.from({ length: 6 }).map((_, i) => (
                <ProductSkeleton key={i} />
              ))}
