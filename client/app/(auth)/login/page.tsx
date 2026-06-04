@@ -16,18 +16,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import {
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
+
 import { Input } from "@/components/ui/input";
 
 import { loginSchema } from "@/validations/login.schema";
 import { useAppDispatch } from "@/store/hooks";
 import { loginSuccess } from "@/store/slices/authSlice";
-import { login } from "./login"; // ✅ separated API call
+import { login } from "@/app/(auth)/login/login";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
@@ -64,8 +66,7 @@ export default function LoginForm() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
-      <Card className="w-full max-w-sm rounded-2xl border shadow-lg">
-
+      <Card className="w-full max-w-sm">
         {/* HEADER */}
         <CardHeader className="text-center space-y-1">
           <CardTitle className="text-2xl font-semibold">
@@ -91,8 +92,19 @@ export default function LoginForm() {
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid} className="space-y-1.5">
-                    <FieldLabel>Email</FieldLabel>
-                    <Input {...field} type="email" placeholder="you@example.com" className="h-11" />
+
+                    <FieldLabel htmlFor="email">
+                      Email
+                    </FieldLabel>
+
+                    <Input
+                      id="email"
+                      {...field}
+                      type="email"
+                      placeholder="you@example.com"
+                      className="h-11"
+                    />
+
                     {fieldState.error && (
                       <FieldError errors={[fieldState.error]} />
                     )}
@@ -106,8 +118,19 @@ export default function LoginForm() {
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid} className="space-y-1.5">
-                    <FieldLabel>Password</FieldLabel>
-                    <Input {...field} type="password" placeholder="••••••••" className="h-11" />
+
+                    <FieldLabel htmlFor="password">
+                      Password
+                    </FieldLabel>
+
+                    <Input
+                      id="password"
+                      {...field}
+                      type="password"
+                      placeholder="••••••••"
+                      className="h-11"
+                    />
+
                     {fieldState.error && (
                       <FieldError errors={[fieldState.error]} />
                     )}
@@ -120,7 +143,10 @@ export default function LoginForm() {
             {/* REGISTER LINK */}
             <div className="text-center text-sm text-muted-foreground">
               Don’t have an account?{" "}
-              <Link href="/register" className="text-primary font-medium hover:underline">
+              <Link
+                href="/register"
+                className="text-primary font-medium hover:underline"
+              >
                 Create one
               </Link>
             </div>

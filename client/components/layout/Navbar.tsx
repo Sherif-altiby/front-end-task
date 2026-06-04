@@ -15,10 +15,8 @@ export default function Navbar() {
     >
       <div className="container mx-auto flex items-center justify-between p-4">
 
-        {/* LOGO */}
         <Logo />
 
-        {/* ACTIONS */}
         <div className="flex items-center gap-2">
 
           {/* THEME TOGGLE */}

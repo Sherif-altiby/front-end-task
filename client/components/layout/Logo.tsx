@@ -5,12 +5,12 @@ export default function Logo() {
     <Link href="/" className="flex items-center gap-2">
       {/* Logo Icon */}
       <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground font-bold text-lg">
-        N
+        S
       </div>
 
       {/* Brand Name */}
       <span className="text-xl font-semibold tracking-tight">
-        Nexora
+        STORE
       </span>
     </Link>
   );
